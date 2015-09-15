@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="-295 390 21 14" enable-background="new -295 390 21 14" xml:space="preserve">
+<g id="Dark_2_" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+	<title>Accordion-Light</title>
+	<desc>Created with Sketch.</desc>
+	<g id="Elements_1_" sketch:type="MSPage">
+		<g id="Accordion_1_" transform="translate(-78.000000, -86.000000)" sketch:type="MSArtboardGroup">
+			<g id="Element-Icon_1_" transform="translate(40.000000, 40.000000)" sketch:type="MSLayerGroup">
+				<g id="Dark_1_" transform="translate(0.000000, 27.000000)" sketch:type="MSShapeGroup">
+					<g id="Accordian_1_">
+						<path id="Accordion-Light_1_" fill="#4B5155" d="M-257,409h21v2h-21V409z M-257,413h21v2h-21V413z M-254,417h15v2h-15V417z
+							 M-257,421h21v2h-21V421z"/>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+<g id="Light" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+	<title>Accordion-Light</title>
+	<desc>Created with Sketch.</desc>
+	<g id="Elements" sketch:type="MSPage">
+		<g id="Accordion" transform="translate(-78.000000, -86.000000)" sketch:type="MSArtboardGroup">
+			<g id="Element-Icon" transform="translate(40.000000, 40.000000)" sketch:type="MSLayerGroup">
+				<g id="Dark" transform="translate(0.000000, 27.000000)" sketch:type="MSShapeGroup">
+					<g id="Accordian">
+						<path id="Accordion-Light" fill="#FFFFFF" d="M-257,409h21v2h-21V409z M-257,413h21v2h-21V413z M-254,417h15v2h-15V417z
+							 M-257,421h21v2h-21V421z"/>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>
