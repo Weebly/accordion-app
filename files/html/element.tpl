@@ -6,7 +6,7 @@
 				{title_{{items_index}}:text default="title {{items_index}}"}
 			</div>
 			<div class="accordion-item-content">
-				{content_{{items_index}}:text default=""}
+				{content_{{items_index}}:content}
 			</div>
 		</li>
 	{{/items_each}}
