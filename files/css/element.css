@@ -36,7 +36,7 @@
 }
 
 .accordion {
-    margin: @gutter;
+    padding: @gutter 0;
     
     &--simple {
         .base-style();
