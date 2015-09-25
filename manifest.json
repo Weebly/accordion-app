@@ -53,7 +53,7 @@
                 "name": "title_background",
                 "label": "Title Background",
                 "type": "color",
-                "default": "#CFD8DC"
+                "default": "#E0E0E0"
               },
               {
                 "name": "content_background",
