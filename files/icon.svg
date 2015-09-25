@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+<svg width="21px" height="32px" viewBox="0 0 21 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
     <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
-    <title>accordion</title>
+    <title>New Build/build-accordion-32</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="accordion" sketch:type="MSArtboardGroup" fill="#C9CDCF">
-            <g id="Form_Accordion" sketch:type="MSLayerGroup" transform="translate(5.000000, 9.000000)">
+        <g id="New-Build/build-accordion-32" sketch:type="MSArtboardGroup" fill="#C9CDCF">
+            <g id="Form_Accordion" sketch:type="MSLayerGroup" transform="translate(0.000000, 9.000000)">
                 <path d="M18,8 L18,10 L3,10 L3,8 L18,8 L18,8 Z M0,14 L21,14 L21,12 L0,12 L0,14 L0,14 Z M0,0 L0,2 L21,2 L21,0 L0,0 L0,0 Z M0,6 L21,6 L21,4 L0,4 L0,6 L0,6 Z" id="Shape" sketch:type="MSShapeGroup"></path>
             </g>
         </g>
