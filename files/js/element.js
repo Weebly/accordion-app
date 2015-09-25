@@ -2,104 +2,83 @@
  * This is required for element rendering to be possible
  * @type {PlatformElement}
  */
-(function(){
-	// Based on:
-	// https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_animations/Detecting_CSS_animation_support
-	function supportsTransitions() {
-		var element = document.createElement('div');
-		var prefixes = ['Webkit', 'Moz', 'O'];
-		if (element.style.animationName !== undefined) {
-			return true;
-		}
-		for (var i = 0; i < prefixes.length; ++i) {
-			if (element.style[prefixes[i] + 'AnimationName'] !== undefined) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	var MyElement = PlatformElement.extend({
-		activeItem: null,
-		fixedHeight: true,
-		cssTransitions: false,
-		fixedItemHeight: '240px',
-
-		events: {
-			"click .accordion-item-title": "titleClick"
-		},
-
+(function() {
+	var Accordion = PlatformElement.extend({
 		initialize: function() {
-			this.fixedHeight = this.settings.get('fixed_height');
-			this.cssTransitions = supportsTransitions();
-		},
-
-
-		/**
-		 * Decide to expand or collapse when user click on a title.
-		 *
-		 * @param event Used to retrive clicked target.
-		 */
-		titleClick: function(event) {
-			var clickedItem = $(event.currentTarget);
-			if (this.activeItem == null) {
-				this.expand(clickedItem);
-				this.activeItem = clickedItem;
-			} else if (this.activeItem && clickedItem[0] != this.activeItem[0]) {
-				this.expand(clickedItem);
-				this.collapse(this.activeItem);	
-				this.activeItem = clickedItem;
-			} else {
-				this.collapse(clickedItem);
-				this.activeItem = null;
-			}
+			this.fixStyles();
+			this.setupAccordion();
+			this.fixBoxStyleBorders();
 		},
 
 		/**
-		 * Expand an item.
+		 * Styles are applied by default to editable areas of
+		 * the editor. To make the element looks how you want, some styles
+		 * need to be overwritten.
 		 *
-		 * @param item
+		 * Classes that are used are:
+		 *      - .editable-text
+		 *      - .paragraph
+		 *      - .ui-wrapper
+		 *      - .wsite-image
+		 *      - .wsite-*
+		 *      - (etc...)
 		 */
-		expand: function(item) {
-			var itemContent = item.next();
-			if (this.cssTransitions) {
-				item.parent().toggleClass('active');
-				if (!this.fixedHeight) {
-					itemContent.css('overflow', 'hidden'); // prevent scroll bar from appearing during animation
-					itemContent.css('height', itemContent[0].scrollHeight);
-					itemContent.css('max-height', itemContent[0].scrollHeight);
-				}
-			} else {
-				if (this.fixedHeight) {
-					itemContent.css('max-height', this.fixedItemHeight);
-					itemContent.animate({height: this.fixedItemHeight}, 200);
-				} else {
-					itemContent.css('overflow', 'hidden');
-					itemContent.css('max-height', itemContent[0].scrollHeight);
-					itemContent.animate({height: itemContent[0].scrollHeight}, 200);
-				}
-				item.parent().toggleClass('active');
-			}
+		fixStyles: function() {
+			this.$el.find('.editable-text').each(function(index) {
+				$(this).attr('style', '');
+			});
+
+			this.$el.find('.element').each(function(index) {
+				$(this).attr('style', '');
+			});
 		},
 
 		/**
-		 * Collapse an item.
-		 *
-		 * @param item
+		 * Simplistic jquery usage to animate and control which
+		 * accordion item is currently open.
 		 */
-		collapse: function(item) {
-			var itemContent = item.next();
-			if (this.cssTransitions) {
-				item.parent().toggleClass('active');
-				if (!this.fixedHeight) {
-					itemContent.css('height', 0);
-					itemContent.css('max-height', 0);
+		setupAccordion: function() {
+			var view = this;
+
+			this.$el.find('.accordion__title').click(function() {
+				var isActive = $(this).parent().hasClass('active');
+
+				view.$el.find('.accordion__title').each(function() {
+					$(this).parent().removeClass('active');
+					var $next = $(this).next();
+					$next.css({
+						'max-height': 0 + 'px'
+					});
+				});
+
+				if (!isActive) {
+					$(this).parent().addClass('active');
+					var $next = $(this).next();
+					$next.css({
+						'max-height': $next[0].scrollHeight + 20 + 'px' // 20 to compensate for padding
+					});
 				}
-			} else if (!this.cssTransitions) {
-				itemContent.animate({height: '0'}, 200);
-				item.parent().toggleClass('active');
+			});
+		},
+
+		/**
+		 * When using the 'Box' style, to avoid
+		 * thick borders on the top and bottom of
+		 * elements, we just shift all the elements up
+		 * 'i' pixels. Preferable over doing it through css
+		 * becuse all the items need all 4 borders on hover.
+		 */
+		fixBoxStyleBorders: function() {
+			// only do it if the style is 'box'
+			if (this.settings.get('style') == 'box') {
+				this.$el.find('.accordion--box .accordion__item').each(function(i) {
+					$(this).css({
+						'top': -i + 'px'
+					});
+				});
 			}
 		}
 	});
-	return MyElement;
+
+	return Accordion;
 })();

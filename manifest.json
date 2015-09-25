@@ -1,47 +1,70 @@
 {
-	"manifest": "1",
-	"version": "1.0.0",
-	"locale": {
-		"default": "en-us",
-		"supported": ["en-us"]
-	},
-	"elements": [
-		{
-			"path": "files",
-			"name": "Accordion",
-			"version": "1.0.0",
-			"settings": {
-				"config": {},
-				"properties": [
-					{
-						"type": "group",
-						"name": "settings",
-						"label": "Settings",
-						"properties": [
-							{
-								"name": "items",
-								"label": "Number of Items",
-								"type": "int",
-								"default": 3,
-								"min": "1",
-								"max": "100"
-							},
-							{
-								"name": "theme",
-								"label": "Theme",
-								"type": "select",
-								"default": "standard",
-								"values": [
-									{"name":"Standard", "value": "standard"},
-									{"name":"Minimal", "value": "minimal"},
-									{"name":"3D", "value": "s3d"},
-									{"name":"Boxed", "value": "boxed"}
-		                        ]
-							}
-						]
-					}
-				]
-			}
-		}
-	]
+  "manifest": "1",
+  "version": "1.0.0",
+  "locale": {
+    "default": "en-us",
+    "supported": [
+      "en-us"
+    ]
+  },
+  "elements": [
+    {
+      "path": "files",
+      "name": "Accordion",
+      "version": "1.0.0",
+      "settings": {
+        "config": {},
+        "properties": [
+          {
+            "type": "group",
+            "name": "settings",
+            "label": "Settings",
+            "properties": [
+              {
+                "name": "items",
+                "label": "Number of Items",
+                "type": "int",
+                "default": 3,
+                "min": "1",
+                "max": "100",
+                "step": 1
+              },
+              {
+                "name": "style",
+                "label": "Style",
+                "type": "select",
+                "default": "simple",
+                "values": [
+                  {
+                    "name": "Simple",
+                    "value": "simple"
+                  },
+                  {
+                    "name": "Box",
+                    "value": "box"
+                  },
+                  {
+                    "name": "Material",
+                    "value": "material"
+                  }
+                ]
+              },
+              {
+                "name": "title_background",
+                "label": "Title Background",
+                "type": "color",
+                "default": "#CFD8DC"
+              },
+              {
+                "name": "content_background",
+                "label": "Content Background",
+                "type": "color",
+                "default": "#FAFAFA"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }
