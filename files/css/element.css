@@ -1,346 +1,178 @@
 /**
  * Put all of your styles for your element in here!
  * @required
+ *
+ * Variables from settings
+ * @title_background
+ * @content_background
  */
 
-// Use template's text color as base color.
-@text-color: inherit;
-// Use text opacity to adjust darkness.
-@dark-text-opacity: 1;
-// Use text opacity to adjust darkness.
-@light-text-opacity: 0.7;
+@content-background: @content_background;
+@title-background: @title_background;
 
+/**
+ * Other variables that get reused
+ */
+@light-multiplier: #E0E0E0;
+@dark-multiplier: #BDBDBD;
 
-// Default box-sizing for each item.
-@default-box-sizing: border-box;
-// Basic list style.
-@list-style: none;
-// Basic list padding.
-@list-padding: 0;
-// Basic display style.
-@item-display-style: block;
-// Basic item margin-bottom.
-@item-margin-bottom: 0 !important;
+@expand-sign: '+';
+@collapse-sign: '\2013';
+@title-height: 50px;
+@gutter: 20px;
+@transition: 500ms ease;
 
-// Default height for empty editor box.
-@fixed-item-height: 500px;
-// Default border width.
-@border-width: 1px;
-// Default border style.
-@border-style: solid;
-// Title text transform. Always upper case.
-@title-font-transform: uppercase;
-// Title text font weight.
-@title-font-weight: 700;
-// Toggle +/- sign font weight. Placed in right side of title row.
-@toggle-font-weight: 400;
-// Toggle +/- sign font size.
-@toggle-font-size: 1.7em;
-// Title line height.
-@title-line-height: 50px;
-// Title position.
-@title-position: relative;
-// Title/Content row width.
-@line-width: 100%;
-// Content line height.
-@content-line-height: 150%;
-// Content area expand/collapse transition.
-@content-transition: 1s ease max-height, 1s ease height;
-// Content overflow when collapsed.
-@content-collapse-overflow: hidden;
-// Content height when collapsed.
-@content-collapse-height: 0;
-// Content overflow when expanded.
-@content-expand-overflow: auto;
-// Content padding right:
-@content-padding-right: 30px;
-
-
-// Toggle + sign.
-@toggle-expand-sign: "+";
-// Toggle - sign.
-@toggle-collapse-sign: "\2013";
-// Toggle sign's element position.
-@toggle-position: absolute;
-// Toggle sign's position to top.
-@toggle-top: 0;
-// Toggle sign's position to right.
-@toggle-right: 20px;
-
-/* Minimal theme */
-// Default text color.
-@minimal-text-color: #008CE6;
-// Minimal disable toggle sign.
-@minimal-toggle-sign: none;
-
-/* Box/3D basic */
-// Left padding size for box style boxes.
-@box-padding-left: 20px;
-// box-sizing
-@box-sizing: border-box;
-// Bottom z-index.
-@bottom-z-index: 1;
-// Middle z-index.
-@middle-z-index: 2;
-// Top z-index.
-@top-z-index: 3;
-// To make z-index work, need to make element positioned.
-@box-position: relative;
-
-/* Boxed theme */
-// Default border color.
-@boxed-border-color: rgba(128, 128, 128, 0.5);
-// Border color for hover box.
-@boxed-hover-border-color: rgba(128, 128, 128, 0.8);
-// Background color for hover box.
-@boxed-hover-background-color: rgba(128, 128, 128, 0.2);
-// Border color for active box.
-@boxed-active-border-color: rgba(128, 128, 128, 1);
-// Margin to merge nearby border together.
-@boxed-margin-top: -1px;
-
-/* 3D theme */
-// Default border color. Transparent.
-@s3d-border-margin: 1px 1px 1px 1px;
-// Default background color.
-@s3d-background-color: rgba(195, 195, 195, 0.1);
-// Shadow for hover and active boxes.
-@s3d-shadow: 0 0 40px rgba(128, 128, 128, 0.2);
-// Background color for hover and active boxes.
-@s3d-shadow-background-color: rgba(255, 255, 255, 0.0);
-// Transition animation for hover and active.
-@s3d-transition-move: 0.2s ease all;
-
-
-/* Note: element has been modified from its original design in order for
-         visibility on dark backgrounds. The above colors can be used in more
-         selectors in order to adhere to the original design. */
-
-/*= Text fields
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.accordion-item-title .editable-text,
-.accordion-item-title div.paragraph {
-	padding: 0;
-	line-height: @title-line-height;
+/**
+ * Text Field Overrides
+ */
+.paragraph {
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: @title-height;
 }
 
-.accordion-item-content div.paragraph {
-	line-height: @content-line-height;
+.editable-text {
+    line-height: @title-height;
 }
 
-
-/*= Base
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*
-
-*/
-.accordion-ul {
-	list-style: @list-style;
-	padding: @list-padding;
-
-	.accordion-li {
-		display: @item-display-style;
-		margin-bottom: @item-margin-bottom;
-
-		// Show title
-		.accordion-item-title {
-			width: @line-width;
-			height: @title-line-height;
-			line-height: @title-line-height;
-			text-transform: @title-font-transform;
-			font-weight: @title-font-weight;
-			position: @title-position;
-			cursor:pointer;
-
-			div.paragraph {
-				color: @text-color;
-				opacity: @light-text-opacity;
-			}
-		}
-
-		// Show toggle sign + by default.
-		.accordion-item-title::after {
-			content: @toggle-expand-sign;
-			position: @toggle-position;
-			top: @toggle-top;
-			right: @toggle-right;
-			font-weight: @toggle-font-weight;
-			font-size: @toggle-font-size;
-			color: @text-color;
-			opacity: @light-text-opacity;
-		}
-
-		// Setup content area and set height=0 to hide by default.
-		.accordion-item-content {
-			width: @line-width;
-			max-height: @content-collapse-height;
-			height: @content-collapse-height;
-			overflow: @content-collapse-overflow;
-			-webkit-transition: @content-transition;
-			-o-transition: @content-transition;
-			transition: @content-transition;
-			padding-right: @content-padding-right;
-			box-sizing: @default-box-sizing;
-		}
-	}
-
-	.accordion-li.active {
-		// Dark text when title is active.
-		.accordion-item-title div.paragraph {
-			color: @text-color;
-			opacity: @dark-text-opacity;
-		}
-
-		// Update toggle sign when box become active.
-		.accordion-item-title::after {
-			content: @toggle-collapse-sign;
-			color: @text-color;
-			opacity: @dark-text-opacity;
-		}
-
-		// Update height when box become active, to show content area.
-		.accordion-item-title + .accordion-item-content {
-			max-height: @fixed-item-height;
-			height: @fixed-item-height;
-			overflow: @content-expand-overflow;
-		}
-	}
+.accordion {
+    margin: @gutter;
+    
+    &--simple {
+        .base-style();
+    }
+    &--material {
+        .base-style();
+        .material-style();
+    }
+    &--box {
+        .base-style();
+        .box-style();
+    }
 }
 
-/*= Standard
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-.accordion.standard .accordion-ul {
+.base-style() {
+    .accordion__item {
+        width: 100%;
+        display: block;
+        position: relative;
+        margin-bottom: 0;
+        background-color: #FFFFFF;
+        height: 100%;
+        box-sizing: border-box;
+        
+        .accordion__title {
+            width: 100%;
+            background-color: @title-background;
+            height: @title-height;
+            line-height: @title-height;
+            padding: 0 @gutter;
+            font-weight: bold !important;
+            text-transform: uppercase;
+            box-sizing: border-box;
+            font-size: 1.25rem;
+            transition: 250ms ease;
+            opacity: 0.75;
 
-	.accordion-li:hover {
+            span {
+                opacity: 0.5;
+            }
+            
+            &::after {
+                content: @expand-sign;
+                position: absolute;
+                float: right;
+                top: 0;
+                right: @gutter;
+                font-size: 1.25em;
+                opacity: 0.5;
+            }
+            
+            &:hover {
+                cursor: pointer;
+                opacity: 1;
+                
+                span {
+                    opacity: 1;
+                }
 
-		// Dark text title when hover over the title.
-		.accordion-item-title div.paragraph {
-			opacity: @dark-text-opacity;
-		}
+                &::after {
+                    content: @expand-sign;
+                }
+            }
+        }
+        
+        .accordion__content {
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: 500ms ease;
+            padding: 0 @gutter;
+            background-color: @content-background;
+        }
+        
+        &.active {
+            .accordion__title {
+                background-color: @content-background;
+                
+                span {
+                    opacity: 1;
+                }
 
-		// Dark toggle sign when hover over the title.
-		.accordion-item-title::after {
-			opacity: @dark-text-opacity;
-		}
-	}
+                &::after {
+                    content: @collapse-sign;
+                }
+            }
+
+            .accordion__content {
+                max-height: 1000px;
+                transition: 500ms ease;
+                padding: 0 @gutter @gutter;
+            }
+        }
+    }
 }
 
-/*= Minimal
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-.accordion.minimal .accordion-ul {
-
-	// When non-active.
-	.accordion-li {
-
-		// set Minimal theme's default title color.
-		.accordion-item-title div.paragraph {
-			color: @minimal-text-color;
-		}
-
-		// hide toggle sign in minimal.
-		.accordion-item-title::after {
-			content: @minimal-toggle-sign;
-		}
-	}
-
-	// When active.
-	.accordion-li.active {
-
-		// set Minimal theme's active title color.
-		.accordion-item-title div.paragraph {
-			color: @text-color;
-		}
-
-		// hide toggle sign in minimal.
-		.accordion-item-title::after {
-			content: @minimal-toggle-sign;
-		}
-	}
+.material-style() {
+    @box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    
+    .accordion__item {
+        margin-bottom: 1px;
+        box-shadow: none;
+        transition: 500ms ease;
+        z-index: 1;
+         
+        &:hover {
+            box-shadow: @box-shadow;
+            z-index: 3;
+        }
+        
+        &.active {
+            box-shadow: @box-shadow;
+            z-index: 3;
+        }
+    }
 }
 
-/*= Boxed
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.accordion.boxed .accordion-ul {
-
-	.accordion-li {
-		border: @border-width @border-style @boxed-border-color;
-		margin-top: @boxed-margin-top;
-		padding-left: @box-padding-left;
-		box-sizing: @box-sizing;
-		position: @box-position;
-		z-index: @bottom-z-index;
-	}
-
-	.accordion-li.active {
-		z-index: @top-z-index;
-		border-color: @boxed-active-border-color;
-	}
-
-
-	.accordion-li:hover {
-		// For border display. Move hovered box above regular box, but under active box.
-		z-index: @middle-z-index;
-		background-color: @boxed-hover-background-color;
-		border-color: @boxed-hover-border-color;
-
-		// Dark text title when hover over the title.
-		.accordion-item-title div.paragraph {
-			opacity: @dark-text-opacity;
-		}
-
-		// Dark toggle sign when hover over the title.
-		.accordion-item-title::after {
-			opacity: @dark-text-opacity;
-		}
-	}
+.box-style() {
+    @border-dark: 1px solid multiply(@content-background, @dark-multiplier);
+    @border-light: 1px solid multiply(@title-background, @light-multiplier);
+    
+    .accordion__item {
+        transition: 250ms ease;
+        border: @border-light;
+        z-index: 1;
+        
+        &:hover {
+            border: @border-light;
+            z-index: 3;
+        }
+        
+        &.active {
+            border: @border-dark;
+            z-index: 3;
+        }
+    }
 }
-
-/*= 3D
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-.accordion.s3d .accordion-ul {
-
-	.accordion-li {
-		// make transparent "border".
-		margin: @s3d-border-margin;
-		padding-left: @box-padding-left;
-		box-sizing: @box-sizing;
-		position: @box-position;
-		z-index: @bottom-z-index;
-		background-color: @s3d-background-color;
-	}
-
-	// When active, show shadow in middle, and use dark text color like before.
-	.accordion-li.active {
-		z-index: @middle-z-index;
-		-webkit-box-shadow: @s3d-shadow;
-		box-shadow: @s3d-shadow;
-		background-color: @s3d-shadow-background-color;
-		border-color: @s3d-shadow-background-color;
-		-webkit-transition: @s3d-transition-move;
-		-o-transition: @s3d-transition-move;
-		transition: @s3d-transition-move;
-	}
-
-	// when hover, show shadow on top level, and use dark text color.
-	.accordion-li:hover {
-		z-index: @top-z-index;
-		-webkit-box-shadow: @s3d-shadow;
-		box-shadow: @s3d-shadow;
-		background-color: @s3d-shadow-background-color;
-		border-color: @s3d-shadow-background-color;
-		-webkit-transition: @s3d-transition-move;
-		-o-transition: @s3d-transition-move;
-		transition: @s3d-transition-move;
-
-		.accordion-item-title div.paragraph {
-			opacity: @dark-text-opacity;
-		}
-		.accordion-item-title::after {
-			opacity: @dark-text-opacity;
-		}
-	}
-}
-
