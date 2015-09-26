@@ -7,15 +7,9 @@
  * @content_background
  */
 
-@content-background: @content_background;
-@title-background: @title_background;
-
 /**
  * Other variables that get reused
  */
-@light-multiplier: #E0E0E0;
-@dark-multiplier: #BDBDBD;
-
 @expand-sign: '+';
 @collapse-sign: '\2013';
 @title-height: 50px;
@@ -63,7 +57,7 @@
         
         .accordion__title {
             width: 100%;
-            background-color: @title-background;
+            background-color: @title_background;
             height: @title-height;
             line-height: @title-height;
             padding: 0 @gutter;
@@ -110,12 +104,12 @@
             overflow: hidden;
             transition: 500ms ease;
             padding: 0 @gutter;
-            background-color: @content-background;
+            background-color: @content_background;
         }
         
         &.active {
             .accordion__title {
-                background-color: @content-background;
+                background-color: @content_background;
                 
                 span {
                     opacity: 1;
@@ -157,21 +151,15 @@
 }
 
 .box-style() {
-    @border-dark: 1px solid multiply(@content-background, @dark-multiplier);
-    @border-light: 1px solid multiply(@title-background, @light-multiplier);
-    
     .accordion__item {
         transition: 250ms ease;
-        border: @border-light;
         z-index: 1;
         
         &:hover {
-            border: @border-light;
             z-index: 3;
         }
         
         &.active {
-            border: @border-dark;
             z-index: 3;
         }
     }

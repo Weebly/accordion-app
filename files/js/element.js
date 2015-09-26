@@ -8,6 +8,22 @@
             this.fixStyles();
             this.setupAccordion();
             this.fixBoxStyleBorders();
+
+            this.titleColor = this.hexToRgba(this.settings.get('title_background'));
+            this.contentColor = this.hexToRgba(this.settings.get('content_background'));
+        },
+
+        /**
+         * Used to calculate colors
+         */
+        hexToRgba(hex): function() {
+            var patt = /^#([\da-fA-F]{2})([\da-fA-F]{2})([\da-fA-F]{2})$/;
+            var matches = patt.exec(hex);
+            return {
+                r: parseInt(matches[1], 16),
+                g: parseInt(matches[2], 16),
+                b: parseInt(matches[3], 16)
+            };
         },
 
         /**
@@ -58,6 +74,8 @@
                         'max-height': $next[0].scrollHeight + 20 + 'px' // 20 to compensate for padding
                     });
                 }
+
+                view.fixBoxStyleBorders();
             });
         },
 
@@ -69,11 +87,28 @@
          * becuse all the items need all 4 borders on hover.
          */
         fixBoxStyleBorders: function() {
+            var view = this;
+
             // only do it if the style is 'box'
             if (this.settings.get('style') == 'box') {
+                var colorLight = 'rgba(%s, %s, %s, 0.66)'.replace('%s', this.titleColor.r).replace('%s', this.titleColor.g).replace('%s', this.titleColor.b);
+                var colorDark = 'rgba(%s, %s, %s, 0.66)'.replace('%s', this.contentColor.r).replace('%s', this.titleColor.g).replace('%s', this.titleColor.b)
+
                 this.$el.find('.accordion--box .accordion__item').each(function(i) {
                     $(this).css({
                         'top': -i + 'px'
+                    });
+                });
+
+                this.$el.find('.accordion--item').each(function() {
+                    $(this).css({
+                        'border': colorLight
+                    });
+                });
+
+                this.$el.find('.active').each(function() {
+                    $(this).css({
+                        'border': colorDark
                     });
                 });
             }
