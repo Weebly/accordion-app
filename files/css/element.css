@@ -17,6 +17,18 @@
 @transition: 500ms ease;
 
 /**
+ * Calculated contrast variables
+ */
+@title-contrast: contrast(@title_background, #424242, #FAFAFA);
+@content-contrast: contrast(@content_background, #424242, #FAFAFA);
+
+/**
+ * Calculated mix variables
+ */
+@title-mix: mix(@title_background, @title-contrast);
+@content-mix: mix(@content_background, @content-contrast);
+
+/**
  * Text Field Overrides
  */
 .paragraph {
@@ -80,6 +92,7 @@
                 right: @gutter;
                 font-size: 1.25em;
                 opacity: 0.5;
+                color: @title-mix;
             }
             
             &:hover {
@@ -118,6 +131,7 @@
 
                 &::after {
                     content: @collapse-sign;
+                    color: @content-mix;
                 }
             }
 
@@ -152,12 +166,9 @@
 }
 
 .box-style() {
-    @title_contrast: contrast(@title_background, #616161, #F5F5F5);
-    @content_contrast: contrast(@content_background, #616161, #F5F5F5);
-
     .accordion__item {
         transition: 250ms ease;
-        border: 1px solid mix(@title_background, @title_contrast);
+        border: 1px solid @title-mix;
         z-index: 1;
         
         &:hover {
@@ -166,7 +177,8 @@
         
         &.active {
             z-index: 3;
-            border: 1px solid mix(@content_background, @content_contrast);
+            border: 1px solid @content-mix;
         }
     }
 }
+
