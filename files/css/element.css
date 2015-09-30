@@ -81,7 +81,7 @@
                 content: @expand-sign;
                 position: absolute;
                 float: right;
-                top: 0;
+                top: 10px;
                 right: @gutter;
                 font-size: 1.25em;
                 opacity: 0.5;
@@ -174,4 +174,3 @@
         }
     }
 }
-
