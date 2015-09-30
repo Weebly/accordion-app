@@ -131,7 +131,7 @@
             .accordion__content {
                 max-height: 1000px;
                 transition: 500ms ease;
-                padding: 0 @gutter @gutter;
+                padding: 10px @gutter @gutter;
             }
         }
     }
