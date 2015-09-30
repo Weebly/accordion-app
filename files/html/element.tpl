@@ -5,7 +5,9 @@
                 <span>{title_{{items_index}}:text default="title {{items_index}}"}<span>
             </div>
             <div class="accordion__content">
-                {content_{{items_index}}:content}
+                <div style="padding: 10px 20px 20px;">
+                    {content_{{items_index}}:content}
+                </div>
             </div>
         </div>
     {{/items_each}}

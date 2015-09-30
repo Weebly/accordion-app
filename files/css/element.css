@@ -103,13 +103,13 @@
         }
         
         .accordion__content {
+            display: none;
             width: 100%;
             box-sizing: border-box;
             font-size: 1rem;
             max-height: 0;
             overflow: hidden;
             transition: 500ms ease;
-            padding: 0 @gutter;
             background-color: @content_background;
         }
         
@@ -129,9 +129,9 @@
             }
 
             .accordion__content {
+                display: block;
                 max-height: 1000px;
                 transition: 500ms ease;
-                padding: 10px @gutter @gutter;
             }
         }
     }
@@ -160,7 +160,7 @@
 
 .box-style() {
     .accordion__item {
-        transition: 250ms ease;
+        transition: 500ms ease;
         border: 1px solid @title-mix;
         z-index: 1;
         
