@@ -34,11 +34,6 @@
 .paragraph {
     padding: 0 !important;
     margin: 0 !important;
-    line-height: @title-height;
-}
-
-.editable-text {
-    line-height: @title-height;
 }
 
 .accordion {
@@ -70,9 +65,7 @@
         .accordion__title {
             width: 100%;
             background-color: @title_background;
-            height: @title-height;
-            line-height: @title-height;
-            padding: 0 @gutter;
+            padding: 10px @gutter;
             font-weight: bold !important;
             text-transform: uppercase;
             box-sizing: border-box;
