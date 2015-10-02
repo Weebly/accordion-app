@@ -2,10 +2,9 @@
  * Put all of your styles for your element in here!
  * @required
  *
- * Variables from settings
- * @title_background
- * @content_background
- */
+ * Variables from settings */
+// @title_background
+// @content_background
 
 /**
  * Other variables that get reused
@@ -42,13 +41,65 @@
     &--simple {
         .base-style();
     }
+
     &--material {
         .base-style();
         .material-style();
     }
+
     &--box {
         .base-style();
         .box-style();
+    }
+
+    &--simple {
+        &.no-touch {
+            .base-style();
+            .base-notouch();
+        }
+    }
+
+    &--material {
+        &.no-touch {
+            .base-style();
+            .base-notouch();
+            .material-style();
+            .material-notouch();
+        }
+    }
+
+    &--box {
+        &.no-touch {
+            .base-style();
+            .base-notouch();
+            .box-style();
+            .box-notouch();
+        }
+    }
+}
+
+.base-notouch() {
+    .accordion__item {
+        .accordion__title:hover {
+            opacity: 1;
+            
+            span {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.material-notouch() {
+    .accordion__item:hover {
+        box-shadow: @box-shadow;
+        z-index: 3;
+    }
+}
+
+.box-notouch() {
+    .accordion__item:hover {
+        z-index: 3;
     }
 }
 
@@ -72,6 +123,7 @@
             font-size: 1.25rem;
             transition: 250ms ease;
             opacity: 0.75;
+            cursor: pointer;
 
             span {
                 opacity: 0.5;
@@ -86,19 +138,6 @@
                 font-size: 1.25em;
                 opacity: 0.5;
                 color: @title-mix;
-            }
-            
-            &:hover {
-                cursor: pointer;
-                opacity: 1;
-                
-                span {
-                    opacity: 1;
-                }
-
-                &::after {
-                    content: @expand-sign;
-                }
             }
         }
         
@@ -145,11 +184,6 @@
         box-shadow: none;
         transition: 500ms ease;
         z-index: 1;
-         
-        &:hover {
-            box-shadow: @box-shadow;
-            z-index: 3;
-        }
         
         &.active {
             box-shadow: @box-shadow;
@@ -163,10 +197,6 @@
         transition: 500ms ease;
         border: 1px solid @title-mix;
         z-index: 1;
-        
-        &:hover {
-            z-index: 3;
-        }
         
         &.active {
             z-index: 3;

@@ -1,4 +1,4 @@
-<div class="accordion accordion--{{style}}">
+<div class="accordion accordion--{{style}} no-touch">
     {{#items_each}} 
         <div class="accordion__item">
             <div class="accordion__title">
