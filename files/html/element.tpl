@@ -1,6 +1,6 @@
 <div class="accordion accordion--{{style}} no-touch">
     {{#items_each}} 
-        <div class="accordion__item">
+        <div class="accordion__item" data-item="{{items_index}}">
             <div class="accordion__title">
                 <span>{title_{{items_index}}:text default="title {{items_index}}"}<span>
             </div>
