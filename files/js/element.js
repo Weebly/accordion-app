@@ -77,7 +77,7 @@
              * "NA" is the identifier that no items
              * were open at page load
              */
-            if (this.activeIndex != "NA") {
+            if (this.activeIndex != '-1') {
                 this.$el.find('[data-item="' + this.activeIndex + '"]').find('.accordion__title').trigger('click');
             }
         },
@@ -99,7 +99,7 @@
                 e.preventDefault();
 
                 var isActive = $(this).parent().hasClass('active');
-                view.settings.set('active_index', 'NA');
+                view.settings.set('active_index', '-1');
 
                 // handles closing
                 view.$el.find('.accordion__title').each(function() {

@@ -65,7 +65,7 @@
                 "name": "active_index",
                 "label": "active_index",
                 "type": "string",
-                "default": "NA",
+                "default": "-1",
                 "hidden": "true"
               }
             ]
