@@ -1,7 +1,6 @@
 {
   "manifest": "1",
   "version": "1.3.0",
-  "client_id": "782261146",
   "locale": {
     "default": "en-us",
     "supported": [
