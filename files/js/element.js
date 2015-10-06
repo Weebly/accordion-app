@@ -96,17 +96,25 @@
 		setupSortable: function() {
 			var view = this;
 
+			var $accordion = this.$el.find('.accordion');
+
 			/**
 			 * Make the container that holds each item
 			 * sortable
 			 */
-			this.$el.find('.accordion').sortable();
+			$accordion.sortable();
+
+			$accordion.on('sortstart', function(e, ui) {
+				if(e.type == 'click') {
+					e.stopImmediatePropagation();
+				}
+			});
 
 			/**
 			 * When the DOM has finished updating for
 			 * item reordering, save the new order
 			 */
-			this.$el.find('.accordion').on('sortupdate', function() {
+			$accordion.on('sortupdate', function() {
 				view.settings.set('ordering_array', '"' + JSON.stringify(view.getOrder()) + '"');
 				view.settings.save();
 			});
@@ -117,7 +125,13 @@
 		 * reloaded or refreshed, open it back up
 		 */
 		setOpen: function() {
-
+			/**
+			 * "NA" is the identifier that no items
+			 * were open at page load
+			 */
+			if(this.activeIndex != "NA") {
+				this.$el.find('[data-item="' + this.activeIndex + '"]').find('.accordion__title').trigger('click');
+			}
 		},
 
 		/**
@@ -137,6 +151,7 @@
 				e.preventDefault();
 
 				var isActive = $(this).parent().hasClass('active');
+				view.settings.set('active_index', 'NA');
 
 				// handles closing
 				view.$el.find('.accordion__title').each(function() {
@@ -147,6 +162,7 @@
 					$next.css({
 						'max-height': 0 + 'px'
 					});
+
 					if (eachIsActive) {
 						setTimeout(function() {
 							$this.parent().removeClass('active');
@@ -158,11 +174,14 @@
 				if (!isActive) {
 					$(this).parent().addClass('active');
 					var $next = $(this).next();
-
+					var activeIndex = $(this).parent().attr('data-item');
+					view.settings.set('active_index', activeIndex);
 					$next.css({
 						'max-height': $next[0].scrollHeight + 20 + 'px' // 20 to compensate for padding
 					});
 				}
+
+				view.settings.save();
 			});
 
 			this.$el.find('.accordion__title').on('touchend', function() {
