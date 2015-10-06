@@ -9,6 +9,8 @@
 
             this.fixStyles();
             this.setupAccordion();
+            this.setOpen();
+            this.listenToContentChanges();
         },
 
         /**
@@ -37,6 +39,50 @@
         },
 
         /**
+         * Listens to subtree modifications in the content areas
+         * and resizes them as needed
+         */
+        listenToContentChanges: function() {
+            /**
+             * Setup a mutation observer to listen to dom manipulation events
+             */
+            var mutationObserver = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    var $closest = $(mutation.target).closest('.accordion__content');
+                    if($closest) {
+                        $closest.css({
+                            'max-height': $closest[0].scrollHeight + 20 + 'px' // 20 to compensate for padding
+                        });
+                    }
+                });
+            });
+
+            /**
+             * Assign the mutationObserver to each content area
+             */
+            this.$el.find('.accordion__content').each(function() {
+                mutationObserver.observe($(this)[0], {
+                    childList: true,
+                    subtree: true
+                });
+            });
+        },
+
+        /**
+         * If an index was active when the page was
+         * reloaded or refreshed, open it back up
+         */
+        setOpen: function() {
+            /**
+             * "NA" is the identifier that no items
+             * were open at page load
+             */
+            if (this.activeIndex != '-1') {
+                this.$el.find('[data-item="' + this.activeIndex + '"]').find('.accordion__title').trigger('click');
+            }
+        },
+
+        /**
          * Simplistic jQuery usage to animate and control which
          * accordion item is currently open
          */
@@ -53,6 +99,7 @@
                 e.preventDefault();
 
                 var isActive = $(this).parent().hasClass('active');
+                view.settings.set('active_index', '-1');
 
                 // handles closing
                 view.$el.find('.accordion__title').each(function() {
@@ -75,10 +122,14 @@
                 if (!isActive) {
                     $(this).parent().addClass('active');
                     var $next = $(this).next();
+                    var activeIndex = $(this).parent().attr('data-item');
+                    view.settings.set('active_index', activeIndex);
                     $next.css({
                         'max-height': $next[0].scrollHeight + 20 + 'px' // 20 to compensate for padding
                     });
                 }
+
+                view.settings.save();
             });
 
             this.$el.find('.accordion__title').on('touchend', function() {
