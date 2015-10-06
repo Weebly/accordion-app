@@ -63,13 +63,6 @@
                 "default": "#FAFAFA"
               },
               {
-                "name": "ordering_array",
-                "label": "ordering_array",
-                "type": "string",
-                "default": "\"[]\"",
-                "hidden": "true"
-              },
-              {
                 "name": "active_index",
                 "label": "active_index",
                 "type": "string",
@@ -79,18 +72,6 @@
             ]
           }
         ]
-      },
-      "dependencies": {
-        "editor": {
-          "js": [
-            "assets/jquery-ui-custom.min.js"
-          ]
-        },
-        "publish": {
-          "js": [
-            "assets/jquery-ui-custom.min.js"
-          ]
-        }
       }
     }
   ]

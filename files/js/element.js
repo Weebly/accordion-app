@@ -5,18 +5,10 @@
 (function() {
 	var Accordion = PlatformElement.extend({
 		initialize: function() {
-			/**
-			 * double JSON parse because the initial 
-			 * setting is saved as ""[]"" so that the 
-			 * less compiler does not break
-			 */
-			this.orderingArray = JSON.parse(JSON.parse(this.settings.get('ordering_array')));
 			this.activeIndex = this.settings.get('active_index');
 
 			this.fixStyles();
-            this.orderItems();
 			this.setupAccordion();
-			this.setupSortable();
 			this.setOpen();
 		},
 
@@ -43,81 +35,6 @@
 			});
 
 			this.fixBoxStyleBorders();
-		},
-
-		/**
-         * Handles ordering the items on page load
-         */
-		orderItems: function() {
-			/**
-			 * If the ordering array is empty, get the
-			 * element's initial ordering
-			 */
-			if (this.orderingArray.length == 0) {
-				this.orderingArray = this.getOrder();
-				/**
-				 * This should only ever be reached the first 
-				 * time the element is dragged onto the page
-				 * so it is safe to return without reordering
-				 */
-				return;
-			}
-
-            // get the items
-			var items = this.$el.find('.accordion__item');
-
-            // get the parent container
-			var $accordion = this.$el.find('.accordion');
-
-            // remove the items from the parent
-            $accordion.empty();
-
-            // append the items in the correct order
-			for (var i = 0; i < this.orderingArray.length; i++) {
-                $accordion.append(items[this.orderingArray[i]]);
-			}
-		},
-
-		/**
-		 * Helper function to get the order of the items
-		 * for the element
-		 */
-		getOrder: function() {
-			var orderingArray = [];
-			this.$el.find('.accordion__item').each(function() {
-				orderingArray.push(~~$(this).attr('data-item'));
-			});
-			return orderingArray;
-		},
-
-		/**
-		 * Setup item sorting and event listeners
-		 */
-		setupSortable: function() {
-			var view = this;
-
-			var $accordion = this.$el.find('.accordion');
-
-			/**
-			 * Make the container that holds each item
-			 * sortable
-			 */
-			$accordion.sortable();
-
-			$accordion.on('sortstart', function(e, ui) {
-				if(e.type == 'click') {
-					e.stopImmediatePropagation();
-				}
-			});
-
-			/**
-			 * When the DOM has finished updating for
-			 * item reordering, save the new order
-			 */
-			$accordion.on('sortupdate', function() {
-				view.settings.set('ordering_array', '"' + JSON.stringify(view.getOrder()) + '"');
-				view.settings.save();
-			});
 		},
 
 		/**
