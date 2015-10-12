@@ -43,10 +43,10 @@
         setupAccordion: function() {
             var view = this;
 
-            this.$el.find('.accordion__title').on('touchstart click', function(e) {
+            this.getTitles().on('touchstart click', function(e) {
                 // remove "hover" state on touch events
                 if (e.type == "touchstart") {
-                    view.$el.find('.accordion').removeClass('no-touch');
+                    view.getAccordion().removeClass('no-touch');
                 }
 
                 e.stopPropagation();
@@ -55,7 +55,7 @@
                 var isActive = $(this).parent().hasClass('active');
 
                 // handles closing
-                view.$el.find('.accordion__title').each(function() {
+                view.getTitles().each(function() {
                     var $this = $(this);
                     var $next = $(this).next();
                     var eachIsActive = $(this).parent().hasClass('active');
@@ -78,12 +78,17 @@
                     $next.css({
                         'max-height': $next[0].scrollHeight + 20 + 'px' // 20 to compensate for padding
                     });
+
+                    $next.parents('.accordion__content').each(function(index, value) {
+                        view.resizeContentContainer(value, null, $next[0].scrollHeight + 20);
+                    }.bind(this));
                 }
+                
             });
 
-            this.$el.find('.accordion__title').on('touchend', function() {
-                view.$el.find('.accordion').addClass('no-touch');
-            });
+            this.getTitles().on('touchend', function() {
+                this.getAccordion().addClass('no-touch');
+            }.bind(this));
         },
 
         /**
@@ -98,12 +103,39 @@
 
             // only do it if the style is 'box'
             if (this.settings.get('style') == 'box') {
-                this.$el.find('.accordion--box .accordion__item').each(function(i) {
+                this.getAccordion().filter('.accordion--box').children().each(function(i) {
                     $(this).css({
                         'top': -i
                     });
                 });
             }
+        },
+
+        resizeContentContainer: function(contentContainer, e, delta) {
+            if (e) {
+                e.stopPropagation();
+            }
+            var max = contentContainer.scrollHeight + 20 + delta;
+            $(contentContainer).css({
+                'max-height': max + 'px'
+            });
+        },
+
+        // these functions exist so that if there's nested accordions, we don't accidentally select child accordions.
+        getAccordion: function() {
+            return this.$el.children();
+        },
+
+        getTitles: function() {
+            return this.$el.children()
+                .children()
+                .children('.accordion__title');
+        },
+
+        getContent: function() {
+            return this.$el.children()
+                .children()
+                .children('.accordion__content');
         }
     });
 
