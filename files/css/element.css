@@ -35,7 +35,7 @@
     margin: 0 !important;
 }
 
-.accordion {
+& > .accordion {
     padding: @gutter 0;
     
     &--simple {
@@ -80,7 +80,7 @@
 
 .base-notouch() {
     .accordion__item {
-        .accordion__title:hover {
+        & > .accordion__title:hover {
             opacity: 1;
             
             span {
@@ -113,7 +113,7 @@
         height: 100%;
         box-sizing: border-box;
         
-        .accordion__title {
+        & > .accordion__title {
             width: 100%;
             background-color: @title_background;
             padding: 10px @gutter;
@@ -141,7 +141,7 @@
             }
         }
         
-        .accordion__content {
+        & > .accordion__content {
             display: none;
             width: 100%;
             box-sizing: border-box;
@@ -153,7 +153,7 @@
         }
         
         &.active {
-            .accordion__title {
+            & > .accordion__title {
                 background-color: @content_background;
                 opacity: 1;
                 
@@ -167,7 +167,7 @@
                 }
             }
 
-            .accordion__content {
+            & > .accordion__content {
                 display: block;
                 max-height: 1000px;
                 transition: 500ms ease;
@@ -179,7 +179,7 @@
 .material-style() {
     @box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     
-    .accordion__item {
+    & > .accordion__item {
         margin-bottom: 1px;
         box-shadow: none;
         transition: 500ms ease;
@@ -193,7 +193,7 @@
 }
 
 .box-style() {
-    .accordion__item {
+    & > .accordion__item {
         transition: 500ms ease;
         border: 1px solid @title-mix;
         z-index: 1;
