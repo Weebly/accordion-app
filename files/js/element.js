@@ -7,6 +7,9 @@
         initialize: function() {
             this.activeIndex = this.settings.get('active_index');
 
+            // if we have any iframes, we get an overlay
+            this.$el.children('.platform-element-overlay').hide();
+
             this.fixStyles();
             this.setupAccordion();
         },
