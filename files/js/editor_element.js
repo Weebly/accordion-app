@@ -7,6 +7,9 @@
         initialize: function() {
             this.activeIndex = this.settings.get('active_index');
 
+            // if we have any iframes, we get an overlay
+            this.$el.children('.platform-element-overlay').hide();
+
             this.fixStyles();
             this.setupAccordion();
             this.setOpen();
@@ -77,12 +80,8 @@
             var view = this;
             if (this.activeIndex != '-1') {
                 this.getAccordion()
-                    .children()
-                    .filter(function() {
-                        return $(this).data('data-item') == view.activeIndex;
-                    })
-                    .children()
-                    .filter('.accordion__title')
+                    .children('[data-item="' + view.activeIndex +  '"]')
+                    .children('.accordion__title')
                     .trigger('click');
             }
         },
