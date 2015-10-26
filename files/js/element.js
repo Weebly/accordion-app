@@ -39,6 +39,23 @@
             this.fixBoxStyleBorders();
         },
 
+         /**
+         * Listens to size modifications in the content areas
+         * and resizes them as needed
+         */
+        listenToContentChanges: function() {
+            this.currentContent = this.getAccordion()
+                .children('[data-item="' + this.settings.get('active_index') +  '"]')
+                .children('.accordion__content');
+            if (this.currentContent[0]) {
+                this.contentInterval = setInterval(function() {
+                    if (this.currentContent[0].scrollHeight + 20 != parseInt(this.currentContent.css('max-height'))) {
+                        this.currentContent.css('max-height', this.currentContent[0].scrollHeight + 20 + 'px');
+                    }
+                }.bind(this), 50);
+            }
+        },
+
         /**
          * Simplistic jQuery usage to animate and control which
          * accordion item is currently open
@@ -47,6 +64,8 @@
             var view = this;
 
             this.getTitles().on('touchstart click', function(e) {
+                clearInterval(view.contentInterval);
+
                 // remove "hover" state on touch events
                 if (e.type == "touchstart") {
                     view.getAccordion().removeClass('no-touch');
@@ -82,9 +101,7 @@
                         'max-height': $next[0].scrollHeight + 20 + 'px' // 20 to compensate for padding
                     });
 
-                    $next.parents('.accordion__content').each(function(index, value) {
-                        view.resizeContentContainer(value, null, $next[0].scrollHeight + 20);
-                    }.bind(this));
+                    view.listenToContentChanges();
                 }
                 
             });
@@ -112,16 +129,6 @@
                     });
                 });
             }
-        },
-
-        resizeContentContainer: function(contentContainer, e, delta) {
-            if (e) {
-                e.stopPropagation();
-            }
-            var max = contentContainer.scrollHeight + 20 + delta;
-            $(contentContainer).css({
-                'max-height': max + 'px'
-            });
         },
 
         // these functions exist so that if there's nested accordions, we don't accidentally select child accordions.

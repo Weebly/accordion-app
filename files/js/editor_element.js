@@ -13,7 +13,6 @@
             this.fixStyles();
             this.setupAccordion();
             this.setOpen();
-            this.listenToContentChanges();
         },
 
         /**
@@ -42,30 +41,20 @@
         },
 
         /**
-         * Listens to subtree modifications in the content areas
+         * Listens to size modifications in the content areas
          * and resizes them as needed
          */
         listenToContentChanges: function() {
-            /**
-             * Setup a mutation observer to listen to dom manipulation events
-             */
-            var view = this;
-            var mutationObserver = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    var $closest = $(mutation.target).closest('.accordion__content');
-                    view.resizeContentContainer($closest[0]);
-                });
-            });
-
-            /**
-             * Assign the mutationObserver to each content area
-             */
-            this.getContent().each(function() {
-                mutationObserver.observe($(this)[0], {
-                    childList: true,
-                    subtree: true
-                });
-            });
+            this.currentContent = this.getAccordion()
+                .children('[data-item="' + this.settings.get('active_index') +  '"]')
+                .children('.accordion__content');
+            if (this.currentContent[0]) {
+                this.contentInterval = setInterval(function() {
+                    if (this.currentContent[0].scrollHeight + 20 != parseInt(this.currentContent.css('max-height'))) {
+                        this.currentContent.css('max-height', this.currentContent[0].scrollHeight + 20 + 'px');
+                    }
+                }.bind(this), 50);
+            }
         },
 
         /**
@@ -77,13 +66,10 @@
              * "NA" is the identifier that no items
              * were open at page load
              */
-            var view = this;
-            if (this.activeIndex != '-1') {
-                this.getAccordion()
-                    .children('[data-item="' + view.activeIndex +  '"]')
-                    .children('.accordion__title')
-                    .trigger('click');
-            }
+            this.getAccordion()
+                .children('[data-item="' + this.activeIndex +  '"]')
+                .children('.accordion__title')
+                .trigger('click');
         },
 
         /**
@@ -94,6 +80,8 @@
             var view = this;
 
             this.getTitles().on('touchstart click', function(e) {
+                clearInterval(view.contentInterval);
+                
                 // remove "hover" state on touch events
                 if (e.type == "touchstart") {
                     view.getAccordion().removeClass('no-touch');
@@ -133,12 +121,9 @@
                         'max-height': $next[0].scrollHeight + 20 + 'px' // 20 to compensate for padding
                     });
 
-                    $next.parents('.accordion__content').each(function(index, value) {
-                        view.resizeContentContainer(value, null, $next[0].scrollHeight + 20);
-                    }.bind(this));
+                    view.listenToContentChanges();
                 }
 
-                
 
                 view.settings.save();
             });
@@ -166,16 +151,6 @@
                     });
                 });
             }
-        },
-
-        resizeContentContainer: function(contentContainer, e, delta) {
-            if (e) {
-                e.stopPropagation();
-            }
-            var max = contentContainer.scrollHeight + 20 + delta;
-            $(contentContainer).css({
-                'max-height': max + 'px'
-            });
         },
 
         // these functions exist so that if there's nested accordions, we don't accidentally select child accordions.
