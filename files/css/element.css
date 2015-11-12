@@ -11,7 +11,7 @@
  */
 @expand-sign: '+';
 @collapse-sign: '\2013';
-@title-height: 50px;
+@title-height: 45px;
 @gutter: 20px;
 @transition: 500ms ease;
 
@@ -124,6 +124,7 @@
             transition: 250ms ease;
             opacity: 0.75;
             cursor: pointer;
+            min-height: @title-height;
 
             span {
                 opacity: 0.5;
