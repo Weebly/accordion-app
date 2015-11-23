@@ -10,34 +10,9 @@
             // if we have any iframes, we get an overlay
             this.$el.children('.platform-element-overlay').hide();
 
-            this.fixStyles();
+            this.fixBoxStyleBorders();
             this.setupAccordion();
             this.setOpen();
-        },
-
-        /**
-         * Styles are applied by default to editable areas of
-         * the editor. To make the element looks how you want, some styles
-         * need to be overwritten.
-         *
-         * Classes that are used are:
-         *      - .editable-text
-         *      - .paragraph
-         *      - .ui-wrapper
-         *      - .wsite-image
-         *      - .wsite-*
-         *      - (etc...)
-         */
-        fixStyles: function() {
-            this.$el.find('.editable-text').each(function(index) {
-                $(this).attr('style', '');
-            });
-
-            this.$el.find('.element').each(function(index) {
-                $(this).attr('style', '');
-            });
-
-            this.fixBoxStyleBorders();
         },
 
         /**
