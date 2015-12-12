@@ -76,6 +76,10 @@
                         'max-height': $next[0].scrollHeight + 20 + 'px' // 20 to compensate for padding
                     });
 
+                    setTimeout(function() {
+                        $(window).resize();
+                    }, 250);
+
                     view.listenToContentChanges();
                 }
                 
