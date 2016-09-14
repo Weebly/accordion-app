@@ -1,6 +1,6 @@
 {
   "manifest": "1",
-  "version": "1.3.6",
+  "version": "1.3.7",
   "locale": {
     "default": "en-us",
     "supported": [
@@ -11,7 +11,7 @@
     {
       "path": "files",
       "name": "Accordion",
-      "version": "1.3.6",
+      "version": "1.3.7",
       "settings": {
         "config": {},
         "properties": [
@@ -71,6 +71,16 @@
             ]
           }
         ]
+      },
+      "tutorial": {
+        "introduction": "Accordion creates a list of items that individually expand on click to display content.",
+        "type": "steps",
+        "content": [
+          "Select the number of items in your list. You can use the + and - buttons to adjust the amount or click directly into the number field to type in a number.",
+          "Configure the look of the app. You can choose one of three different display styles and set the background colors for the title and content areas.",
+          "Give each item a title and add content. Click on a title to type in a name and expand the content area. You can drag and position multiple elements here just like you can on any Weebly page. You can even add other apps, so go ahead and think outside the box!"
+        ],
+        "autopop": true
       }
     }
   ]
