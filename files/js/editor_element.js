@@ -54,7 +54,15 @@
         setupAccordion: function() {
             var view = this;
 
-            this.getTitles().on('touchstart click', function(e) {
+            $titles = this.getTitles();
+            $events = $._data($titles[0], "events");
+
+            // if we already have set up click events, don't set more up
+            if ($events && $events.click && $events.click[0]) {
+                return;
+            }
+
+            $titles.on('touchstart click', function(e) {
                 clearInterval(view.contentInterval);
                 
                 // remove "hover" state on touch events
